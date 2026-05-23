@@ -1,7 +1,5 @@
-dataset/
-*.png
-*.jpg
-*.jpeg
+datasets/
+
 *.pth
 *.pt
 __pycache__/
