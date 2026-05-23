@@ -1,0 +1,9 @@
+dataset/
+*.png
+*.jpg
+*.jpeg
+*.pth
+*.pt
+__pycache__/
+venv/
+.vscode/
