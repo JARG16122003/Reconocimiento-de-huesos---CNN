@@ -13,8 +13,11 @@ https://drive.google.com/drive/folders/1XIjJ9aLZtRebEHbz1Y4A2jy55JmrcqVw?usp=dri
 MODELO ENTRENADO PARA CLASIFICACIÓN DE GÉNERO DISPONIBLE EN:
 https://drive.google.com/drive/folders/1XIjJ9aLZtRebEHbz1Y4A2jy55JmrcqVw?usp=drive_link 
 
+MODELO ENTRENADO PARA CLASIFICACIÓN DE FRACTURAS DISPONIBLE EN:
+https://drive.google.com/drive/folders/1O4shCRpITY6hxJ-HuOAdAU1do5Xcgse5
+
 
 Proyecto realizado por:
-- Cristhian Bermúdez
 - Julián García
+- Cristhian Bermúdez
 - Miguel González
