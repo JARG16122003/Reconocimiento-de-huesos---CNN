@@ -2,21 +2,19 @@ import torch
 import torch.nn as nn
 
 from torchvision import transforms
-from PIL import Image
+from PIL import Image 
 
-# Dispositivo
 device = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
 
-# Arquitectura CNN
 class CNN(nn.Module):
 
     def __init__(self):
-
+        
         super().__init__()
 
-        self.conv = nn.Sequential(
+        self.conv=nn.Sequential(
 
             nn.Conv2d(3,32,3,padding=1),
             nn.ReLU(),
@@ -32,9 +30,7 @@ class CNN(nn.Module):
         )
 
         self.fc = nn.Sequential(
-
             nn.Flatten(),
-
             nn.Linear(128*28*28,256),
             nn.ReLU(),
 
@@ -44,30 +40,25 @@ class CNN(nn.Module):
         )
 
     def forward(self, x):
-
+        
         x = self.conv(x)
 
         x = self.fc(x)
 
         return x
 
-# Crear modelo
 model = CNN().to(device)
 
-# Cargar pesos
 model.load_state_dict(
     torch.load(
-        "models/genderModelcnn.pth",
+        "models/fractureModelcnn.pth",
         map_location=device
     )
 )
 
-# Modo evaluación
 model.eval()
 
-# Transformaciones
 transform = transforms.Compose([
-
     transforms.Resize((224,224)),
 
     transforms.ToTensor(),
@@ -78,27 +69,31 @@ transform = transforms.Compose([
     )
 ])
 
-# Imagen de prueba
-image = Image.open(
-    "tester2.png"
-).convert("RGB")
+classes = ['Fracturado', 'Sin fractura']
 
-# Transformar imagen
-image = transform(image)
+def predict_fracture(image_path):
 
-# Agregar batch
-image = image.unsqueeze(0).to(device)
+    image = Image.open(
+        image_path
+    ).convert("RGB")
 
-# Predicción
-with torch.no_grad():
+    image = transform(image)
 
-    outputs = model(image)
+    image = image.unsqueeze(0).to(device)
 
-    _, predicted = torch.max(outputs,1)
+    with torch.no_grad():
+        
+        outputs = model(image)
 
-# Resultado
-classes = ['female', 'male']
+        _, predicted = torch.max(outputs,1)
 
-print(
-    f"Prediction: {classes[predicted.item()]}"
-)
+    result = classes[predicted.item()]
+    
+    print(
+        f"prediction: {result}"
+    )
+
+    return result
+
+    
+
