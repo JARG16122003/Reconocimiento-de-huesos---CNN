@@ -50,7 +50,7 @@ model = CNN().to(device)
 model.load_state_dict(
     torch.load(
         "models/fractureModelcnn.pth",
-        map_location=device
+        map_location=torch.device("cpu")
     )
 )
 
