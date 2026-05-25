@@ -5,50 +5,144 @@ from PIL import Image
 from predict_gender import predict_gender
 from predict_fracture import predict_fracture
 
-# Título
-st.title("Sistema Inteligente de Análisis Óseo")
+# ==========================================
+# CONFIGURACIÓN
+# ==========================================
 
-st.write(
-    "Sube una radiografía para analizar:"
+st.set_page_config(
+    page_title="Programa de estudio de huesos",
+    layout="wide"
 )
 
-st.write("- Sexo biológico")
-st.write("- Estado del hueso (fractura o sano)")
+# ==========================================
+# ESTILOS
+# ==========================================
 
-# Upload
-uploaded_file = st.file_uploader(
-    "Selecciona una radiografía",
-    type=["png","jpg","jpeg"]
-)
+st.markdown("""
+<style>
 
-# Si sube imagen
-if uploaded_file is not None:
+.stApp {
+    background-color: #d9d9d9;
+}
 
-    image = Image.open(uploaded_file)
+/* HEADER */
+.header {
+    background-color: #67c7e3;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
 
-    # Mostrar imagen
-    st.image(
-        image,
-        caption="Radiografía subida",
-        use_container_width=True
+.header h1 {
+    color: black;
+    font-size: 40px;
+    margin: 0;
+}
+
+/* CONTENEDORES */
+[data-testid="stVerticalBlock"] > div:has(.custom-box) {
+    background-color: #b7dceb;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* RESULTADOS */
+.result-box {
+    background-color: #76c5df;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# ==========================================
+# HEADER
+# ==========================================
+
+st.markdown("""
+<div class="header">
+    <h1>Programa de estudio de huesos</h1>
+</div>
+""", unsafe_allow_html=True)
+
+# ==========================================
+# COLUMNAS
+# ==========================================
+
+left_col, right_col = st.columns(2)
+
+# ==========================================
+# PANEL IZQUIERDO
+# ==========================================
+
+with left_col:
+
+    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
+
+    st.subheader("Radiografía")
+
+    uploaded_file = st.file_uploader(
+        "Selecciona una imagen",
+        type=["png", "jpg", "jpeg"]
     )
 
-    # Guardar temporalmente
-    temp_path = "temp_image.png"
+    if uploaded_file is not None:
 
-    image.save(temp_path)
+        image = Image.open(uploaded_file)
 
-    # Predicción género
-    gender_result = predict_gender(temp_path)
+        st.image(
+            image,
+            use_container_width=True
+        )
 
-    # Predicción fractura
-    fracture_result = predict_fracture(temp_path)
+        temp_path = "temp_image.png"
 
-    # Mostrar resultados
-    st.success(
-        f"Sexo biológico: {gender_result}"
-    )
+        image.save(temp_path)
 
-    st.warning(
-        f"Estado del hueso: {fracture_result}"
-    )
+        gender_result = predict_gender(temp_path)
+
+        fracture_result = predict_fracture(temp_path)
+
+    else:
+
+        gender_result = "---"
+
+        fracture_result = "---"
+
+        st.info("Sube una radiografía para comenzar")
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ==========================================
+# PANEL DERECHO
+# ==========================================
+
+with right_col:
+
+    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
+
+    # RESULTADO SEXO
+    with st.container():
+
+        st.markdown('<div class="result-box">', unsafe_allow_html=True)
+
+        st.subheader("Clasificación de sexo biológico")
+
+        st.success(gender_result)
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # RESULTADO FRACTURA
+    with st.container():
+
+        st.markdown('<div class="result-box">', unsafe_allow_html=True)
+
+        st.subheader("Estado del hueso")
+
+        st.warning(fracture_result)
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)

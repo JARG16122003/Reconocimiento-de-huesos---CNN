@@ -5,9 +5,7 @@ from torchvision import transforms
 from PIL import Image
 
 # Dispositivo
-device = torch.device(
-    "cuda" if torch.cuda.is_available() else "cpu"
-)
+device = torch.device("cpu")
 
 # Arquitectura CNN
 class CNN(nn.Module):

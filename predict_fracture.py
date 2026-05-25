@@ -4,9 +4,7 @@ import torch.nn as nn
 from torchvision import transforms
 from PIL import Image 
 
-device = torch.device(
-    "cuda" if torch.cuda.is_available() else "cpu"
-)
+device = torch.device("cpu")
 
 class CNN(nn.Module):
 
