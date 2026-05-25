@@ -13,6 +13,16 @@ https://drive.google.com/drive/folders/1XIjJ9aLZtRebEHbz1Y4A2jy55JmrcqVw?usp=dri
 MODELO ENTRENADO PARA CLASIFICACIÓN DE GÉNERO DISPONIBLE EN:
 https://drive.google.com/drive/folders/1XIjJ9aLZtRebEHbz1Y4A2jy55JmrcqVw?usp=drive_link 
 
+COMANDOS PARA INSTALACIÓN DE LIBRERIAS Y DEL ENTORNO VIRTUAL
+
+.venv\Scripts\Activate.ps1
+
+pip install torch torchvision pillow
+pip install customtkinter
+pip install pyinstaller
+
+pip install streamlit
+
 
 Proyecto realizado por:
 - Cristhian Bermúdez
