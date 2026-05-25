@@ -1,6 +1,6 @@
 datasets/
 
-*.pth
+
 *.pt
 __pycache__/
 venv/
